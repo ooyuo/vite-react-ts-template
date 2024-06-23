@@ -1,13 +1,24 @@
-import { Cats, fetchTranslations } from '@/model/testApi';
-import { useQuery } from '@tanstack/react-query';
+import { fetchTranslations } from '@/model/testApi';
+import { useStore } from '@/store/useStore';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 function Translations() {
-  const { data, error, isLoading } = useQuery<Cats[]>({
+  const { setSpinnerImage } = useStore();
+
+  useEffect(() => {
+    setSpinnerImage('/spinner1.gif');
+
+    return () => {
+      setSpinnerImage('/spinner2.gif');
+    };
+  }, [setSpinnerImage]);
+
+  const { data, error } = useSuspenseQuery({
     queryKey: ['cats'],
     queryFn: fetchTranslations,
   });
 
-  if (isLoading) return <div>Loading...</div>;
   if (error instanceof Error) return <div>Error: {error.message}</div>;
 
   return (
