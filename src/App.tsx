@@ -4,6 +4,7 @@ import reactLogo from './assets/react.svg';
 
 import './App.css';
 import UserProfile from './components/UserProfile';
+import Translations from './components/Translations';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -11,7 +12,8 @@ function App() {
   return (
     <>
       <div>
-        <UserProfile userId={1} />
+        {/* <UserProfile userId={1} /> */}
+        <Translations />
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
