@@ -54,6 +54,8 @@ interface Weight {
 
 export async function fetchTranslations(): Promise<Cats[]> {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
     const response = await axiosInstance.get<Cats[]>(
       'https://api.thecatapi.com/v1/images/search?limit=10'
     );

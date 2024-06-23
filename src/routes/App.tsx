@@ -34,21 +34,19 @@ function AppRoutes() {
   return <div>{element}</div>;
 }
 
-const App: React.FC = () => (
-  <QueryClientProvider client={queryClient}>
-    <QueryErrorResetBoundary>
-      <RetryErrorBoundary>
-        <SpinnerProvider>
+const App: React.FC = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <QueryErrorResetBoundary>
+        <RetryErrorBoundary>
           <BrowserRouter>
-            <React.Suspense fallback={<GlobalSpinner />}>
-              <AppRoutes />
-            </React.Suspense>
+            <AppRoutes />
           </BrowserRouter>
-        </SpinnerProvider>
-      </RetryErrorBoundary>
-    </QueryErrorResetBoundary>
-    <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>
-);
+        </RetryErrorBoundary>
+      </QueryErrorResetBoundary>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
+};
 
 export default App;

@@ -13,7 +13,12 @@ export function SpinnerProvider({ children }: { children: ReactNode }) {
   const [spinnerImage, setSpinnerImage] = useState<string>('/spinner2.gif');
 
   return (
-    <SpinnerContext.Provider value={{ spinnerImage, setSpinnerImage }}>
+    <SpinnerContext.Provider
+      value={{
+        spinnerImage,
+        setSpinnerImage,
+      }}
+    >
       {children}
     </SpinnerContext.Provider>
   );
