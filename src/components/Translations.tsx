@@ -1,8 +1,9 @@
 import { fetchTranslations } from '@/model/testApi';
 import { useStore } from '@/store/useStore';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import RetryErrorBoundary from './error/RetryErrorBoundary';
+import SkeletonLoader from './skeleton/SkeletonLoader';
 
 function Translations() {
   const { setSpinnerImage } = useStore();
@@ -25,8 +26,19 @@ function Translations() {
       <h1>Translations</h1>
       <ul>
         {data?.map((cat) => (
-          <li key={cat.id}>
-            <img src={cat.url} alt={cat.id} />
+          <li
+            key={cat.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '10px',
+            }}
+          >
+            <img
+              src={cat.url}
+              alt={cat.id}
+              style={{ width: '50px', height: '50px', marginRight: '10px' }}
+            />
             <span>
               {cat.width} * {cat.height}
             </span>
@@ -39,6 +51,8 @@ function Translations() {
 
 export default () => (
   <RetryErrorBoundary>
-    <Translations />
+    <Suspense fallback={<SkeletonLoader />}>
+      <Translations />
+    </Suspense>
   </RetryErrorBoundary>
 );
