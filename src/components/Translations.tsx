@@ -2,6 +2,7 @@ import { fetchTranslations } from '@/model/testApi';
 import { useStore } from '@/store/useStore';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
+import RetryErrorBoundary from './error/RetryErrorBoundary';
 
 function Translations() {
   const { setSpinnerImage } = useStore();
@@ -14,12 +15,10 @@ function Translations() {
     };
   }, [setSpinnerImage]);
 
-  const { data, error } = useSuspenseQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ['cats'],
     queryFn: fetchTranslations,
   });
-
-  if (error instanceof Error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
@@ -38,4 +37,8 @@ function Translations() {
   );
 }
 
-export default Translations;
+export default () => (
+  <RetryErrorBoundary>
+    <Translations />
+  </RetryErrorBoundary>
+);
